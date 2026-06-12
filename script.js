@@ -146,7 +146,7 @@ window.onload = () => {
   }
 
   isUnlocked = false;
-  updateBalanceUI();
+  
 };
 // ===============================
 // PAYMENT FLOW
@@ -240,8 +240,12 @@ if(window.checkingBalance){
   document.getElementById("bio-popup").style.display =
   "none";
 
+document.getElementById("popupBalance").innerText =
+"₹" + balance.toLocaleString();
+
   document.getElementById("balancePopup").style.display =
   "flex";
+  
 
   window.checkingBalance = false;
 
@@ -1229,6 +1233,13 @@ balance -= amount;
 totalDebit += amount;
 
 updateBalanceUI();
+
+document.getElementById("balance").innerText =
+"● ● ● ● ● ●";
+
+document.querySelector(".eye").className =
+"ri-eye-line eye";
+
 }
 function openSettings(){
 
