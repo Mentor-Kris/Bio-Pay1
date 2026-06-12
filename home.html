@@ -34,6 +34,27 @@ onclick="event.stopPropagation();toggleNotifications()">
 
 </div>
 
+<div class="profile-wrapper">
+
+  <div class="profile-btn"
+       onclick="toggleProfileMenu()">
+    P
+  </div>
+
+  <div id="profileMenu"
+       class="profile-menu">
+
+    <div onclick="openAccountPage()">
+      Account
+    </div>
+
+    <div onclick="logout()">
+      Logout
+    </div>
+
+  </div>
+
+</div>
 <!-- NOTIFICATION PANEL -->
 
 <div id="notificationPanel"
@@ -1112,5 +1133,75 @@ Close
 </div>
 
 <script src="script.js"></script>
+<div id="accountPage" class="account-page">
+
+  <div class="account-header">
+
+    <h2>Account Details</h2>
+
+    <button onclick="closeAccountPage()">✕</button>
+
+  </div>
+
+  <div class="account-body">
+
+    <label>Mobile Number</label>
+    <input id="accountMobile" readonly>
+
+    <label>Full Name</label>
+    <input id="accountName">
+
+    <label>Email</label>
+    <input id="accountEmail">
+
+    <label>City</label>
+    <input id="accountCity">
+
+    <label>Date of Birth</label>
+    <input id="accountDob" type="date">
+
+    <label>BioPay UPI ID</label>
+    <input id="accountUpi" readonly>
+
+    <button onclick="saveAccountDetails()">
+      Save Details
+    </button>
+
+  </div>
+
+</div>
+<h2>Account Details</h2>
+
+<button onclick="closeAccountPage()">
+Close
+</button>
+
+<br><br>
+
+<label>Mobile Number</label>
+<input id="accountMobile" readonly>
+
+<br><br>
+
+<label>Full Name</label>
+<input id="accountName">
+
+<br><br>
+
+<label>Email</label>
+<input id="accountEmail">
+
+<br><br>
+
+<label>City</label>
+<input id="accountCity">
+
+<br><br>
+
+<button onclick="saveAccountDetails()">
+Save Details
+</button>
+
+</div>
 </body>
 </html>

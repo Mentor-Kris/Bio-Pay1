@@ -61,7 +61,7 @@ function checkOTP() {
   const real = localStorage.getItem("otp");
 
   if (entered === real) {
-    alert("Login Successful ✅");
+    alert("Login Successful");
     const mobile =
 localStorage.getItem("mobile");
 
@@ -159,6 +159,7 @@ let currentName = "";
 
 function openPayPopup(){
 
+  document.getElementById("nameInput").value = "";
   document.getElementById("mobileInput").value = "";
   document.getElementById("amountInput").value = "";
   document.getElementById("messageInput").value = "";
@@ -402,67 +403,71 @@ Paid Securely via Bio-Pay Fingerprint`;
 // =========================
 function addToHistory(){
 
-  // initials
+let initials =
+currentName
+.split(" ")
+.map(word => word[0])
+.join("")
+.toUpperCase();
 
-  let initials =
-  currentName
-  .split(" ")
-  .map(word => word[0])
-  .join("")
-  .toUpperCase();
+const now = new Date();
 
-  // current time
+const time =
+now.toLocaleTimeString("en-IN",{
+hour:"2-digit",
+minute:"2-digit"
+});
 
-  const now = new Date();
+const item =
+document.createElement("div");
 
-  const time =
-  now.toLocaleTimeString("en-IN",{
-    hour:"2-digit",
-    minute:"2-digit"
-  });
+item.className = "activity-item";
 
-  // item
+item.setAttribute("data-name", currentName);
+item.setAttribute("data-mobile", currentMobile);
+item.setAttribute("data-amount", currentAmount);
+item.setAttribute("data-date",
+document.getElementById("receiptDate").innerText);
+item.setAttribute("data-time",
+document.getElementById("receiptTime").innerText);
+item.setAttribute("data-transaction",
+document.getElementById("transactionId").innerText);
 
-  const item =
-  document.createElement("div");
+item.innerHTML = `
 
-  item.className =
-  "activity-item";
+<div class="activity-left">
 
-  item.innerHTML = `
+<div class="activity-avatar">
+${initials}
+</div>
 
-    <div class="activity-left">
+<div class="activity-info">
 
-      <div class="activity-avatar">
-        ${initials}
-      </div>
+<h4>${currentName}</h4>
 
-      <div class="activity-info">
+<p>${currentMobile} • ${time}</p>
 
-        <h4>${currentName}</h4>
+</div>
 
-        <p>${currentMobile} • ${time}</p>
+</div>
 
-      </div>
+<div class="activity-amount">
 
-    </div>
+<h3>-₹${currentAmount}</h3>
 
-    <div class="activity-amount">
+<button class="view-btn"
+onclick="viewReceipt(this)">
+👁 View
+</button>
 
-      <h3>-₹${currentAmount}</h3>
+<button class="delete-btn"
+onclick="deleteHistory(this)">
+🗑 Delete
+</button>
+</div>
+`;
 
-      <button class="delete-btn"
-      onclick="deleteHistory(this)">
-        Delete
-      </button>
-
-    </div>
-
-  `;
-
-  // newest first
-
-  activity.prepend(item);
+document.getElementById("activityList").prepend(item);
 }
 
 /* delete single */
@@ -508,81 +513,65 @@ function deleteHistory(button){
   item.remove();
 }
 /* clear all */
+function viewReceipt(button){
 
+const item =
+button.closest(".activity-item");
+
+const name =
+item.getAttribute("data-name");
+
+const mobile =
+item.getAttribute("data-mobile");
+
+const amount =
+item.getAttribute("data-amount");
+
+const date =
+item.getAttribute("data-date");
+
+const time =
+item.getAttribute("data-time");
+
+const transaction =
+item.getAttribute("data-transaction");
+
+let initials =
+name
+.split(" ")
+.map(word => word[0])
+.join("")
+.toUpperCase();
+
+document.getElementById("receiptAmount").innerText =
+"₹" + amount;
+
+document.getElementById("receiverName").innerText =
+name;
+
+document.getElementById("receiptUser").innerText =
+mobile;
+
+document.getElementById("receiptDate").innerText =
+date;
+
+document.getElementById("receiptTime").innerText =
+time;
+
+document.getElementById("transactionId").innerText =
+transaction;
+
+document.getElementById("receiverAvatar").innerText =
+initials;
+
+document.getElementById("receiptPopup").style.display =
+"flex";
+
+}
 function clearHistory(){
 
   document.getElementById("activityList").innerHTML = "";
 }
-  // save receipt data
-
-  const item =
-  document.createElement("div");
-
-  item.className =
-  "activity-item";
-
-  // save custom data
-
-  item.setAttribute("data-name", currentName);
-
-  item.setAttribute("data-mobile", currentMobile);
-
-  item.setAttribute("data-amount", currentAmount);
-
-  item.setAttribute(
-    "data-time",
-    document.getElementById("receiptTime").innerText
-  );
-
-  item.setAttribute(
-    "data-date",
-    document.getElementById("receiptDate").innerText
-  );
-
-  item.setAttribute(
-    "data-transaction",
-    document.getElementById("transactionId").innerText
-  );
-
-  item.innerHTML = `
-
-    <div class="activity-left">
-
-      <div class="activity-avatar">
-        ${initials}
-      </div>
-
-      <div class="activity-info">
-
-        <h4>${currentName}</h4>
-
-        <p>${currentMobile} • ${time}</p>
-
-      </div>
-
-    </div>
-
-    <div class="activity-amount">
-
-      <h3>-₹${currentAmount}</h3>
-
-      <button class="view-btn"
-      onclick="viewReceipt(this)">
-        View
-      </button>
-
-      <button class="delete-btn"
-      onclick="deleteHistory(this)">
-        Delete
-      </button>
-
-    </div>
-
-  `;
-
-  activity.prepend(item);
-
-function viewReceipt(button){
 
   const item =
   button.closest(".activity-item");
@@ -643,7 +632,7 @@ function viewReceipt(button){
 
   document.getElementById("receiptPopup").style.display =
   "flex";
-}
+
 // OPEN BALANCE
 
 function openBalancePopup(){
@@ -715,10 +704,9 @@ function openQRPopup(){
 
 document.getElementById("qrPopup").style.display =
 "flex";
-
 let username =
-"Kris Bhanderi";
-
+localStorage.getItem("profileName")
+|| "User";
 let upi =
 "kris@biopay";
 
@@ -728,6 +716,14 @@ username
 .map(word => word[0])
 .join("")
 .toUpperCase();
+document.getElementById("centerLogo").innerHTML =
+`<span style="
+font-size:28px;
+font-weight:bold;
+color:#2563eb;
+">
+${username.charAt(0).toUpperCase()}
+</span>`;
 
 document.getElementById("qrAvatar").innerText =
 initials;
@@ -747,7 +743,22 @@ let qrData =
 document.getElementById("realQR").src =
 "https://api.qrserver.com/v1/create-qr-code/?size=260x260&data="
 + encodeURIComponent(qrData);
+const savedPhoto =
+localStorage.getItem("qrPhoto");
 
+if(savedPhoto){
+
+document.getElementById("centerLogo").innerHTML =
+`<img src="${savedPhoto}"
+style="
+width:50px;
+height:50px;
+border-radius:50%;
+object-fit:cover;
+opacity:.9;
+">`;
+
+}
 }
 /* CLOSE POPUP */
 
@@ -1164,27 +1175,26 @@ function uploadQRLogo(event){
 
 const file = event.target.files[0];
 
-if(!file){
-return;
-}
+if(!file) return;
 
 const reader = new FileReader();
 
 reader.onload = function(e){
 
-const logo =
-document.getElementById("centerLogo");
+localStorage.setItem(
+"qrPhoto",
+e.target.result
+);
 
-logo.innerHTML =
+document.getElementById("centerLogo").innerHTML =
 `<img src="${e.target.result}"
 style="
 width:22px;
 height:22px;
 border-radius:50%;
 object-fit:cover;
+opacity:.9;
 ">`;
-
-logo.style.display = "flex";
 
 };
 
@@ -1726,3 +1736,148 @@ function closeApkPopup(){
   "none";
 
 }
+function toggleProfileMenu(){
+
+const menu =
+document.getElementById("profileMenu");
+
+if(menu.style.display === "block"){
+
+menu.style.display = "none";
+
+}else{
+
+menu.style.display = "block";
+
+}
+
+}
+function openAccountPage(){
+
+document.getElementById(
+"profilePage"
+).style.display = "flex";
+
+}
+
+function closeAccountPage(){
+
+document.getElementById(
+"accountPage"
+).style.display = "none";
+
+}
+
+document.getElementById(
+"accountMobile"
+).value =
+localStorage.getItem("userMobile")
+|| "";
+
+
+function closeAccountPage(){
+
+document.getElementById(
+"accountPage"
+).style.display = "none";
+
+}
+function saveAccountDetails(){
+
+localStorage.setItem(
+"profileName",
+document.getElementById("accountName").value
+);
+
+localStorage.setItem(
+"profileEmail",
+document.getElementById("accountEmail").value
+);
+
+localStorage.setItem(
+"profileCity",
+document.getElementById("accountCity").value
+);
+
+alert("Account Saved");
+
+}
+document.addEventListener("DOMContentLoaded", function(){
+
+const name =
+document.getElementById("nameInput");
+
+const mobile =
+document.getElementById("mobileInput");
+
+const amount =
+document.getElementById("amountInput");
+
+const message =
+document.getElementById("messageInput");
+
+if(name){
+
+name.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+
+e.preventDefault();
+
+mobile.focus();
+
+}
+
+});
+
+}
+
+if(mobile){
+
+mobile.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+
+e.preventDefault();
+
+amount.focus();
+
+}
+
+});
+
+}
+
+if(amount){
+
+amount.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+
+e.preventDefault();
+
+message.focus();
+
+}
+
+});
+
+}
+
+if(message){
+
+message.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+
+e.preventDefault();
+
+sendPayment();
+
+}
+
+});
+
+}
+
+});

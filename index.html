@@ -72,7 +72,11 @@
 
     <div class="mobile-input">
       <span class="code">+91</span>
-      <input type="tel" id="mobile" placeholder="Enter mobile number" maxlength="10">
+     <input type="tel"
+id="mobile"
+placeholder="Enter mobile number"
+maxlength="10"
+onkeydown="if(event.key==='Enter'){verifyNumber();}">
     </div>
 
     <button class="btn" onclick="verifyNumber()">Verify</button>
