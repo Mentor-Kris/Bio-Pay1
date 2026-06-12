@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bio-Pay</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+ <div class="logo">
+  <div class="logo-b">B</div>
+  <span>Bio-Pay</span>
+</div>
+
+<nav>
+  <a href="home.html" class="active">Dashboard</a>
+  <a href="help.html">Help</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="right">
+
+<div class="notification-wrapper"
+onclick="event.stopPropagation();toggleNotifications()">
+
+  <i class="ri-notification-3-line"></i>
+
+  <span id="notificationCount">0</span>
+
+</div>
+
+<!-- NOTIFICATION PANEL -->
+
+<div id="notificationPanel"
+class="notification-panel"
+style="display:none;">
+
+  <div class="notification-header">
+
+    <h3>Notifications</h3>
+
+   <button class="clear-btn"
+onclick="clearNotifications()">
+🗑 Clear All
+</button>
+
+  </div>
+
+  <div id="notificationList"></div>
+
+</div>
+</header>
+
+<!-- TOP -->
+<section class="top">
+  <div>
+    <h1>Good morning, Kris</h1>
+    <p>Your biometric vault is secure.</p>
+  </div>
+ <div class="status">
+<div class="status">
+   
+</div>
+</div>
+</section>
+
+<!-- GRID -->
+<section class="grid">
+
+  <!-- BALANCE CARD -->
+<div class="balance-card">
+
+  <div class="top-row">
+    <p class="balance-title">Available Balance</p>
+    <i class="ri-eye-off-line eye"
+onclick="openBalanceBiometric()"></i>
+  </div>
+<h1 id="balance">● ● ● ● ● ●</h1>
+
+  <!-- NEW SECTION (fills empty space) -->
+  <div class="balance-info">
+    <div class="info-box">
+      <p>Total Credit</p>
+      <h4 style="color:#22c55e;"><span id="creditAmount">₹0</span></h4>
+    </div>
+
+    <div class="info-box">
+      <p>Total Debit</p>
+      <h4 style="color:#ef4444;"><span id="debitAmount">₹0</span></h4>
+    </div>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar">
+    <div class="progress-fill"></div>
+  </div>
+
+</div>
+ <div class="pin-popup" id="pinPopup">
+
+  <div class="pin-box">
+    <h3>Enter PIN</h3>
+
+    <input type="password" id="pinInput" maxlength="4" placeholder="••••">
+
+    <button onclick="checkPin()">Unlock</button>
+  </div>
+
+</div>
+  <!-- BIO READY -->
+ <div class="bio">
+
+    <div class="icon-box">
+
+        <i class="ri-fingerprint-line"></i>
+
+    </div>
+
+    <h3>Bio-Ready</h3>
+
+    <p>
+      Execute borderless payments with a single biometric touch.
+    </p>
+
+    <button onclick="openSettingsPopup()">
+
+      <i class="ri-settings-3-line"></i>
+
+      SETTINGS
+
+    </button>
+
+</div>
+
+  </div>
+
+</section>
+
+<!-- ACTION CARDS -->
+<section class="actions">
+
+<div class="action active-card"
+onclick="openBalancePopup()">
+    <i class="ri-bank-line"></i>
+    <p>Check Balance</p>
+</div>
+
+<div class="action" onclick="openPayPopup()">
+    <i class="ri-smartphone-line"></i>
+    <p>Pay Mobile</p>
+</div>
+
+<div class="action"
+onclick="window.location.href='biopay.apk'">
+
+    <i class="ri-qr-scan-2-line"></i>
+
+    <p>Scan to Pay</p>
+
+</div>
+  <div class="action"
+onclick="openQRPopup()">
+
+    <i class="ri-qr-code-line"></i>
+
+    <p>My QR</p>
+
+</div>
+<div id="qrPopup" style="display:none;">
+<div class="myqr-box">
+  <div class="qr-close"
+onclick="closeQRPopup()">
+✖
+</div>
+
+    <p class="qr-subtitle">
+
+      Scan & Pay me securely
+
+    </p>
+
+    <!-- USER -->
+
+    <div class="qr-user-top">
+
+      <!-- USER LOGO -->
+
+      <div class="upi-user-logo"
+      id="qrAvatar">
+
+        KB
+
+      </div>
+
+      <!-- USER INFO -->
+
+      <div class="upi-user-info">
+
+        <h3 id="qrName">
+
+          Kris Bhanderi
+
+        </h3>
+
+        <p id="qrUsername">
+
+          @kris@biopay
+
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- QR CARD -->
+
+    <div class="real-qr-box">
+
+      <!-- REAL QR -->
+
+      <img
+      id="realQR"
+      alt="QR Code">
+
+      <!-- CENTER LOGO -->
+<div class="qr-center-logo"
+id="centerLogo">
+</div>
+
+    </div>
+
+    <!-- CUSTOMIZE -->
+
+    <label class="custom-qr-btn">
+
+Customize QR
+
+<input
+type="file"
+accept="image/*"
+onchange="uploadQRLogo(event)"
+hidden>
+
+</label>
+
+    <!-- APPS -->
+<div class="upi-apps">
+
+  <div class="upi-app gpay">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg">
+  </div>
+
+  <div class="upi-app phonepe">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/PhonePe_Logo.svg">
+  </div>
+
+  <div class="upi-app paytm">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Paytm_logo.png">
+  </div>
+</div>
+
+    <!-- UPI CARD -->
+
+    <div class="upi-card">
+
+      <div>
+
+        <span>
+
+          UPI ID
+
+        </span>
+
+        <h4 id="upiId">
+
+          kris@biopay
+
+        </h4>
+
+      </div>
+
+      <button onclick="copyUPI()">
+
+        <i class="ri-file-copy-line"></i>
+
+        Copy
+
+      </button>
+
+    </div>
+
+    <!-- STATUS -->
+
+    <div class="qr-status">
+
+      <div>
+
+        <span>Status</span>
+
+        <b class="active-status">
+
+          Active
+
+        </b>
+
+      </div>
+
+      <div>
+
+        <span>Security</span>
+
+        <b class="secure-status">
+
+          Bio-Protected
+
+        </b>
+
+      </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+
+    <div class="qr-buttons">
+
+      <button class="share-qr"
+      onclick="shareQR()">
+
+        <i class="ri-share-forward-line"></i>
+
+        Share QR
+
+      </button>
+
+      <button class="download-qr"
+      onclick="downloadQR()">
+
+        <i class="ri-download-line"></i>
+
+        Download QR
+
+      </button>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <p class="qr-footer">
+
+      Your payments are protected with Bio-Pay Security
+
+    </p>
+
+  </div>
+
+</div>
+
+</section>
+<!-- ACTIVITY -->
+
+<section class="activity">
+
+  <div class="activity-top">
+
+    <h3>Activity Stream</h3>
+
+    <button onclick="clearHistory()">
+      Clear History
+    </button>
+
+  </div>
+
+  <div id="activityList">
+
+    <!-- dynamic payments here -->
+
+  </div>
+
+</section>
+
+<!-- PROMO -->
+<section class="promo">
+
+  <!-- LEFT -->
+  <div class="promo-left">
+
+    <span class="reward-tag">
+      REFERRAL REWARD
+    </span>
+
+    <h1>
+      Instant settlements.<br>
+      Infinite security.
+    </h1>
+
+    <p>
+      Invite your network to the future of identity-based finance.
+      Send capital across borders with nothing but your bio-signature.
+    </p>
+
+    <button>
+      EXPAND MY NETWORK
+    </button>
+
+  </div>
+
+  <!-- RIGHT -->
+  <div class="promo-right">
+
+    <div class="floating secured">
+      Secured?
+    </div>
+
+    <div class="dot left-dot"></div>
+
+    <!-- PHONE -->
+    <div class="phone">
+
+      <div class="phone-screen">
+        <i class="ri-check-line"></i>
+      </div>
+
+    </div>
+
+    <div class="floating instant">
+      Instantly.
+    </div>
+
+    <div class="dot right-dot"></div>
+
+  </div>
+
+</section>
+<!-- PAY MOBILE POPUP -->
+
+<div id="payPopup" class="pay-popup">
+
+  <div class="pay-box">
+
+    <div class="pay-top">
+      <h2>Pay Mobile</h2>
+      <i class="ri-close-line" onclick="closePayPopup()"></i>
+    </div>
+
+    <input
+type="text"
+id="nameInput"
+placeholder="Enter Receiver Name">
+    <!-- MOBILE -->
+    <input 
+      type="text" 
+      id="mobileInput"
+      placeholder="Enter Mobile Number"
+    >
+
+    <!-- AMOUNT -->
+    <input 
+      type="number" 
+      id="amountInput"
+      placeholder="Enter Amount"
+    >
+
+    <!-- MESSAGE -->
+    <textarea 
+      id="messageInput"
+      placeholder="Message (Optional)"
+    ></textarea>
+
+    <!-- ERROR -->
+    <p id="paymentError" style="color:red; display:none; margin-bottom:15px;">
+      Please fill all required fields
+    </p>
+
+  <button type="button" onclick="sendPayment()">
+  Proceed Payment
+</button>
+
+  </div>
+
+</div>
+
+<!-- MODERN BIOMETRIC POPUP -->
+
+<div id="bio-popup" class="popup">
+
+  <div class="popup-box">
+
+    <h2>Biometric Verification</h2>
+
+<p>
+  Verify fingerprint to complete secure
+  Bio-Pay transaction
+</p>
+    <!-- SCAN -->
+
+    <div class="scan-area">
+
+    <div class="scan-ring"></div>
+
+    <div class="scan-core">
+
+        <div class="scan-wave"></div>
+
+        <i class="ri-fingerprint-line fingerprint"></i>
+
+    </div>
+
+</div>
+    <div class="scan-status">
+      Capturing Fingerprint...
+    </div>
+
+    <div class="scan-note">
+      Please place your finger on the sensor
+    </div>
+
+    <!-- BUTTONS -->
+
+    <div class="popup-actions">
+
+      <button class="cancel-btn"
+      onclick="closePopup()">
+        CANCEL
+      </button>
+
+      <button class="auth-btn"
+      onclick="authenticate()">
+        AUTHENTICATE
+      </button>
+
+    </div>
+
+    <div class="popup-footer">
+      <i class="ri-shield-check-line"></i>
+      Secured by Bio-Pay Encryption
+    </div>
+
+  </div>
+
+</div>
+
+<!-- BALANCE POPUP -->
+
+<div id="balancePopup" class="balance-popup">
+
+  <div class="balance-box">
+
+    <div class="balance-animation">
+
+      <div class="balance-ring"></div>
+
+      <div class="balance-icon">
+        <i class="ri-wallet-3-line"></i>
+      </div>
+
+    </div>
+
+    <h2>Available Balance</h2>
+
+    <h1 id="popupBalance">₹0</h1>
+
+    <p>
+      Your Bio-Pay wallet balance is secure
+    </p>
+
+    <button onclick="closeBalancePopup()">
+      Done
+    </button>
+
+  </div>
+
+</div>
+
+<!-- PREMIUM RECEIPT -->
+
+<div id="receiptPopup" class="receipt-popup">
+
+  <div class="receipt-box">
+
+    <!-- CONFETTI -->
+    <div class="confetti conf1"></div>
+    <div class="confetti conf2"></div>
+    <div class="confetti conf3"></div>
+    <div class="confetti conf4"></div>
+    <div class="confetti conf5"></div>
+
+    <!-- SUCCESS -->
+    <div class="success-animation">
+
+      <div class="success-ring"></div>
+
+      <div class="success-circle">
+        <i class="ri-check-line"></i>
+      </div>
+
+    </div>
+
+    <h2>Payment Successful</h2>
+
+    <div class="success-badge">
+      <i class="ri-shield-check-line"></i>
+      Transaction Completed Successfully
+    </div>
+
+    <h1 id="receiptAmount">
+      ₹600
+    </h1>
+
+    <!-- USER -->
+
+    <div class="receiver-card">
+
+     <div class="receiver-avatar"
+id="receiverAvatar">
+  RS
+</div>
+
+      <div class="receiver-info">
+
+        <span>Paid to</span>
+
+        <h3 id="receiverName">
+          Rohit Sharma
+        </h3>
+
+        <p id="receiptUser">
+          9016186307
+        </p>
+
+      </div>
+
+      <div class="receiver-check">
+        <i class="ri-user-follow-line"></i>
+      </div>
+
+    </div>
+
+    <!-- DETAILS -->
+
+    <div class="receipt-details">
+
+      <div class="detail-column">
+
+        <div class="detail-item">
+          <span>Status</span>
+          <b class="green-text">Completed ●</b>
+        </div>
+
+        <div class="detail-item">
+          <span>Method</span>
+          <b>BioPay Fingerprint</b>
+        </div>
+
+        <div class="detail-item">
+          <span>Date</span>
+          <b id="receiptDate">8 May 2026</b>
+        </div>
+
+      </div>
+
+      <div class="detail-column">
+
+        <div class="detail-item">
+          <span>Time</span>
+          <b id="receiptTime">12:10 PM</b>
+        </div>
+
+        <div class="detail-item">
+          <span>Transaction ID</span>
+          <b id="transactionId">#BP625958</b>
+        </div>
+
+        <div class="detail-item">
+          <span>Ref. No.</span>
+          <b id="referenceNumber">8485959203</b>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+
+    <div class="receipt-buttons">
+
+      <button class="share-btn"
+      onclick="shareWhatsApp()">
+
+        <i class="ri-whatsapp-line"></i>
+
+        Share Receipt
+
+      </button>
+
+      <button class="done-btn"
+      onclick="closeReceipt()">
+
+        Done
+
+        <i class="ri-arrow-right-s-line"></i>
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- SETTINGS POPUP -->
+
+<div class="settings-popup" id="settingsPopup">
+
+  <div class="settings-box">
+
+    <!-- HEADER -->
+
+    <div class="settings-header">
+
+      <div class="settings-back"
+      onclick="closeSettingsPopup()">
+      <i class="ri-arrow-left-line"></i>
+
+      </div>
+
+      <h2>Bio-Pay Settings</h2>
+    </div>
+    <!-- PROFILE -->
+
+    <div class="profile-setting">
+
+      <div class="profile-avatar">
+
+        KB
+
+      </div>
+
+      <div class="profile-info">
+
+        <h3>Kris Bhanderi</h3>
+
+        <p>@kris@biopay</p>
+
+      </div>
+
+    </div>
+
+    <!-- SETTINGS LIST -->
+
+    <div class="settings-item"
+onclick="openProfilePage()">
+
+    <div class="settings-left">
+
+        <i class="ri-user-3-line"></i>
+
+        <span>Your Profile</span>
+
+    </div>
+
+    <i class="ri-arrow-right-s-line"></i>
+
+</div>
+
+     <div class="settings-item"
+onclick="openSecurityPage()">
+
+    <div class="settings-left">
+
+        <i class="ri-shield-check-line"></i>
+
+        <span>Security Center</span>
+
+    </div>
+
+    <i class="ri-arrow-right-s-line"></i>
+
+</div>
+
+  <div class="settings-item"
+onclick="openAlertsPage()">
+    <div class="settings-left">
+
+        <i class="ri-notification-3-line"></i>
+
+        <span>Payment Alerts</span>
+
+    </div>
+
+    <i class="ri-arrow-right-s-line"></i>
+
+</div>
+      <!-- DARK MODE -->
+
+      <div class="settings-item">
+
+        <div class="settings-left">
+
+          <i class="ri-moon-clear-line"></i>
+
+          <span>Dark Mode</span>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+          type="checkbox"
+          onchange="toggleDarkMode()">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+      <!-- BIOMETRIC -->
+
+      <div class="settings-item">
+
+        <div class="settings-left">
+
+          <i class="ri-fingerprint-line"></i>
+
+          <span>Biometric Lock</span>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+          type="checkbox"
+          checked
+          id="biometricToggle"
+          onchange="toggleBiometric()">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- PROFILE PAGE -->
+
+<div class="settings-popup"
+id="profilePage">
+
+<div class="settings-box">
+
+<div class="settings-header">
+
+<div class="settings-back"
+onclick="closeSettingsPopup()">
+
+    <i class="ri-arrow-left-line"></i>
+
+</div>
+
+<h2>Your Profile</h2>
+
+</div>
+
+<div class="profile-setting">
+
+<div class="profile-avatar">
+
+KB
+
+</div>
+
+<div class="profile-info">
+
+<h3>Kris Bhanderi</h3>
+
+<p>@biopay.user</p>
+
+</div>
+
+</div>
+
+<div class="settings-list">
+
+<div class="settings-item">
+
+<div class="settings-left">
+
+<i class="ri-phone-line"></i>
+<span id="profileMobile">
+Not Added
+</span>
+</div>
+
+</div>
+
+
+<div class="settings-item">
+
+<div class="settings-left">
+
+<i class="ri-map-pin-line"></i>
+
+<span>India</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- SECURITY PAGE -->
+
+<div class="settings-popup"
+id="securityPage">
+
+<div class="settings-box">
+
+<div class="settings-header">
+
+<div class="settings-back"
+onclick="closePage('securityPage')">
+<i class="ri-arrow-left-line"></i>
+</div>
+
+<h2>Security Center</h2>
+
+</div>
+
+<div class="settings-list">
+
+<div class="settings-item">
+
+<div class="settings-left">
+
+<i class="ri-fingerprint-line"></i>
+
+<span>Biometric Active</span>
+
+</div>
+
+</div>
+
+<div class="settings-item">
+
+<div class="settings-left">
+
+<i class="ri-smartphone-line"></i>
+
+<span>1 Trusted Device</span>
+
+</div>
+
+</div>
+
+<div class="settings-item">
+
+<div class="settings-left">
+
+<i class="ri-shield-keyhole-line"></i>
+
+<span>End-to-End Encryption</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ALERTS PAGE -->
+
+<div class="settings-popup"
+id="alertsPage">
+
+<div class="settings-box">
+
+<div class="settings-header">
+
+<div class="settings-back"
+onclick="closePage('alertsPage')">
+
+<i class="ri-arrow-left-line"></i>
+
+</div>
+
+<h2>Payment Alerts</h2>
+
+</div>
+
+<div class="settings-list">
+
+<div class="settings-item">
+
+<div class="settings-left">
+
+<i class="ri-checkbox-circle-fill"></i>
+
+<span>Money Received Alerts</span>
+
+</div>
+
+</div>
+
+<div class="settings-item">
+
+<div class="settings-left">
+
+<i class="ri-checkbox-circle-fill"></i>
+
+<span>Payment Success Alerts</span>
+
+</div>
+
+</div>
+
+<div class="settings-item">
+
+<div class="settings-left">
+
+<i class="ri-checkbox-circle-fill"></i>
+
+<span>Security Login Alerts</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div id="notificationDetails"
+style="
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:25px;
+border-radius:20px;
+width:350px;
+z-index:9999;
+box-shadow:0 10px 40px rgba(0,0,0,.2);
+">
+
+<h2>Notification</h2>
+
+<div id="notificationText"></div>
+
+<br>
+
+<button onclick="closeNotificationDetails()">
+Close
+</button>
+
+</div>
+<div id="notificationPopup"
+class="notification-popup">
+
+<div class="notification-box">
+
+<h2 id="detailTitle"></h2>
+
+<p id="detailMessage"></p>
+
+<small id="detailTime"></small>
+
+<br><br>
+
+<button
+onclick="closeNotificationPopup()">
+Close
+</button>
+
+</div>
+
+</div>
+<div id="apkPopup" class="popup" style="display:none;">
+
+  <div class="popup-box">
+
+    <h2>Bio-Pay Scanner Required</h2>
+
+    <p>
+      To perform QR payments with fingerprint authentication,
+      install the Bio-Pay Scanner App.
+    </p>
+
+    <a href="biopay.apk" target="_blank">
+     <button>Open APK</button>
+    </a>
+
+    <button onclick="closeApkPopup()">
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bio-Pay Contact Support</title>
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f4f8ff;
+color:#0f172a;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:white;
+box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-box{
+width:42px;
+height:42px;
+border-radius:12px;
+background:linear-gradient(135deg,#2563eb,#60a5fa);
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+font-weight:bold;
+font-size:20px;
+}
+
+.back-btn{
+text-decoration:none;
+padding:12px 18px;
+border-radius:12px;
+background:#2563eb;
+color:white;
+font-weight:600;
+}
+
+.hero{
+text-align:center;
+padding:60px 20px;
+}
+
+.hero h1{
+font-size:52px;
+margin-bottom:10px;
+color:#071a52;
+}
+
+.hero p{
+color:#64748b;
+font-size:18px;
+}
+
+.contact-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:40px;
+}
+
+.contact-card{
+background:white;
+padding:30px;
+border-radius:24px;
+text-align:center;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.contact-card:hover{
+transform:translateY(-5px);
+}
+
+.contact-card i{
+font-size:42px;
+color:#2563eb;
+margin-bottom:15px;
+}
+
+.contact-card h3{
+margin-bottom:10px;
+}
+
+.contact-card p{
+color:#64748b;
+}
+
+.form-section{
+padding:40px;
+}
+
+.form-box{
+background:white;
+padding:30px;
+border-radius:24px;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+max-width:900px;
+margin:auto;
+}
+
+.form-box h2{
+margin-bottom:20px;
+}
+
+.input-group{
+margin-bottom:15px;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:14px;
+font-size:15px;
+outline:none;
+}
+
+.input-group textarea{
+height:140px;
+resize:none;
+}
+
+.submit-btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:14px;
+background:#2563eb;
+color:white;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+}
+
+.submit-btn:hover{
+background:#1d4ed8;
+}
+
+#ticketResult{
+display:none;
+margin-top:20px;
+padding:15px;
+background:#ecfdf5;
+border-radius:12px;
+color:#166534;
+font-weight:600;
+}
+
+footer{
+margin-top:40px;
+background:white;
+padding:25px;
+text-align:center;
+color:#64748b;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:38px;
+}
+
+.contact-grid{
+padding:20px;
+}
+
+.form-section{
+padding:20px;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+
+<div class="logo">
+
+<div class="logo-box">B</div>
+
+<h2>Bio-Pay Support</h2>
+
+</div>
+
+<button class="back-btn" onclick="history.back()">
+    <i class="ri-arrow-left-line"></i>
+    Back
+</button>
+</a>
+
+</header>
+
+<div class="hero">
+
+<h1>Contact Support</h1>
+
+<p>We're here to help you 24×7</p>
+
+</div>
+
+<div class="contact-grid">
+
+<div class="contact-card" onclick="callSupport()">
+
+<i class="ri-phone-line"></i>
+
+<h3>Call Us</h3>
+
+<p>+91 1800 123 4567</p>
+
+</div>
+
+<div class="contact-card" onclick="emailSupport()">
+
+<i class="ri-mail-line"></i>
+
+<h3>Email</h3>
+
+<p>support@biopay.com</p>
+
+</div>
+
+<div class="contact-card" onclick="openChat()">
+
+<i class="ri-customer-service-2-line"></i>
+
+<h3>Live Chat</h3>
+
+<p>Average Response: 2 min</p>
+
+</div>
+
+<div class="contact-card" onclick="showLocationComingSoon()">
+
+<i class="ri-map-pin-line"></i>
+
+<h3>Office</h3>
+
+<p>Surat, Gujarat, India</p>
+
+</div>
+
+</div>
+
+<div class="form-section">
+
+<div class="form-box">
+
+<h2>Submit Support Request</h2>
+
+<div class="input-group">
+<input type="text" id="name" placeholder="Full Name">
+</div>
+
+<div class="input-group">
+<input type="text" id="mobile" placeholder="Mobile Number">
+</div>
+
+<div class="input-group">
+<input type="email" id="email" placeholder="Email Address">
+</div>
+
+<div class="input-group">
+<select id="issue">
+
+<option>Payment Issue</option>
+
+<option>Login Problem</option>
+
+<option>Fingerprint Issue</option>
+
+<option>Refund Request</option>
+
+<option>QR Payment Problem</option>
+
+<option>Other</option>
+
+</select>
+</div>
+
+<div class="input-group">
+<textarea id="message" placeholder="Describe your issue..."></textarea>
+</div>
+
+<button class="submit-btn" onclick="submitTicket()">
+Submit Ticket
+</button>
+
+<div id="ticketResult"></div>
+
+</div>
+
+</div>
+
+<footer>
+
+© 2026 Bio-Pay Support Center
+
+</footer>
+
+<script>
+    function showLocationComingSoon(){
+
+alert(
+"📍 Office Location is Coming Soon!"
+);
+
+}
+
+function callSupport(){
+
+window.location.href =
+"tel:+9118001234567";
+
+}
+
+function emailSupport(){
+
+window.location.href =
+"mailto:support@biopay.com";
+
+}
+
+function openChat(){
+
+alert(
+"Live Chat Support Coming Soon"
+);
+
+}
+
+function submitTicket(){
+
+let name =
+document.getElementById("name").value;
+
+if(name===""){
+
+alert("Please enter your name");
+
+return;
+
+}
+
+let ticket =
+"BP" +
+Math.floor(
+100000 + Math.random()*900000
+);
+
+let result =
+document.getElementById(
+"ticketResult"
+);
+
+result.style.display =
+"block";
+
+result.innerHTML =
+"Support Ticket Created Successfully.<br><br>Ticket ID: " +
+ticket;
+document.getElementById("name").value = "";
+document.getElementById("mobile").value = "";
+document.getElementById("email").value = "";
+document.getElementById("message").value = "";
+document.getElementById("issue").selectedIndex = 0;
+
+}
+
+</script>
+
+</body>
+</html>

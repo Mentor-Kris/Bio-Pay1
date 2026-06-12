@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="checkLogin()">
+
+<!-- COPY SAME NAVBAR FROM index.html -->
+
+<div class="container">
+    <h2>Profile</h2>
+    <p>Name: Kris</p>
+    <p>Mobile: <span id="mobile"></span></p>
+</div>
+
+<script src="script.js"></script>
+
+<script>
+document.getElementById("mobile").innerText =
+    localStorage.getItem("mobile");
+</script>
+
+</body>
+</html>

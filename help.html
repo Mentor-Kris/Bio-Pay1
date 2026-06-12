@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bio-Pay Help Center</title>
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f4f8ff;
+color:#0f172a;
+}
+
+/* HEADER */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:white;
+box-shadow:0 5px 20px rgba(0,0,0,.05);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-box{
+width:42px;
+height:42px;
+border-radius:12px;
+background:linear-gradient(135deg,#2563eb,#60a5fa);
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-weight:700;
+font-size:20px;
+}
+
+.logo h2{
+color:#071a52;
+}
+
+.back-btn{
+text-decoration:none;
+padding:12px 18px;
+border-radius:12px;
+background:#2563eb;
+color:white;
+font-weight:600;
+}
+
+/* HERO */
+
+.hero{
+padding:60px 20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:56px;
+font-weight:800;
+color:#071a52;
+margin-bottom:10px;
+}
+
+.hero p{
+color:#64748b;
+font-size:18px;
+margin-bottom:30px;
+}
+
+/* SEARCH */
+
+.search-container{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.search-container input{
+width:550px;
+max-width:90%;
+padding:16px;
+border-radius:16px;
+border:1px solid #dbeafe;
+outline:none;
+font-size:16px;
+}
+
+.search-container button{
+padding:16px 24px;
+border:none;
+border-radius:16px;
+background:#2563eb;
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+.search-container button:hover{
+background:#1d4ed8;
+}
+
+/* SEARCH RESULT */
+
+#searchResult{
+display:none;
+width:90%;
+max-width:900px;
+margin:30px auto;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+font-size:17px;
+line-height:1.7;
+}
+
+/* HELP CARDS */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:20px 40px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:24px;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 15px 40px rgba(37,99,235,.15);
+}
+
+.card i{
+font-size:38px;
+color:#2563eb;
+margin-bottom:12px;
+}
+
+.card h3{
+margin-bottom:10px;
+color:#071a52;
+}
+
+.card p{
+color:#64748b;
+line-height:1.6;
+}
+
+/* SECTION */
+
+.section{
+padding:40px;
+}
+
+.section h2{
+font-size:34px;
+margin-bottom:20px;
+color:#071a52;
+}
+
+/* ARTICLES */
+
+.article{
+background:white;
+padding:20px;
+border-radius:18px;
+margin-bottom:12px;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.article:hover{
+transform:translateX(6px);
+}
+
+/* SUPPORT */
+
+.support-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.support-card{
+background:white;
+padding:30px;
+border-radius:24px;
+text-align:center;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.support-card:hover{
+transform:translateY(-5px);
+}
+
+.support-card i{
+font-size:42px;
+color:#2563eb;
+margin-bottom:12px;
+}
+
+.support-card h3{
+margin-bottom:8px;
+}
+
+.support-card p{
+color:#64748b;
+}
+
+footer{
+margin-top:50px;
+padding:30px;
+text-align:center;
+background:white;
+color:#64748b;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:40px;
+}
+
+.section{
+padding:20px;
+}
+
+.grid{
+padding:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<div class="logo-box">B</div>
+<h2>Bio-Pay Help Center</h2>
+</div>
+
+<button class="back-btn" onclick="history.back()">
+    <i class="ri-arrow-left-line"></i>
+    Back
+</button>
+</header>
+
+<div class="hero">
+
+<h1>How can we help you?</h1>
+
+<p>
+Find answers, solve issues and contact support.
+</p>
+
+<div class="search-container">
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search payment, login, security, QR...">
+
+<button onclick="searchHelp()">
+Search
+</button>
+
+</div>
+
+<div id="searchResult"></div>
+
+</div>
+<!-- HELP TOPICS -->
+
+<div class="grid">
+
+<div class="card" onclick="openTopic('payment')">
+
+<i class="ri-bank-card-line"></i>
+
+<h3>Payment Problems</h3>
+
+<p>
+Failed payments, refunds, pending transactions and payment issues.
+</p>
+
+</div>
+
+<div class="card" onclick="openTopic('login')">
+
+<i class="ri-user-line"></i>
+
+<h3>Account & Login</h3>
+
+<p>
+Mobile verification, login problems and account access support.
+</p>
+
+</div>
+
+<div class="card" onclick="openTopic('security')">
+
+<i class="ri-fingerprint-line"></i>
+
+<h3>Security</h3>
+
+<p>
+Fingerprint authentication and account protection help.
+</p>
+
+</div>
+
+<div class="card" onclick="openTopic('qr')">
+
+<i class="ri-qr-code-line"></i>
+
+<h3>QR Payments</h3>
+
+<p>
+QR scan issues, merchant payments and QR troubleshooting.
+</p>
+
+</div>
+
+</div>
+
+<!-- POPULAR ARTICLES -->
+
+<div class="section">
+
+<h2>Popular Articles</h2>
+
+<div class="article"
+onclick="showArticle('payment')">
+
+How to make a payment?
+
+</div>
+
+<div class="article"
+onclick="showArticle('failed')">
+
+Why did my payment fail?
+
+</div>
+
+<div class="article"
+onclick="showArticle('fingerprint')">
+
+How to enable fingerprint login?
+
+</div>
+
+<div class="article"
+onclick="showArticle('balance')">
+
+How to check balance?
+
+</div>
+
+<div class="article"
+onclick="showArticle('refund')">
+
+How to request a refund?
+
+</div>
+
+</div>
+
+<!-- NEED MORE HELP -->
+
+<div class="section">
+
+<h2>Need More Help?</h2>
+
+<div class="support-grid">
+
+<div class="support-card"
+onclick="openChat()">
+
+<i class="ri-customer-service-2-line"></i>
+
+<h3>Live Chat</h3>
+
+<p>
+Average response time: 2 minutes
+</p>
+
+</div>
+
+<div class="support-card"
+onclick="callSupport()">
+
+<i class="ri-phone-line"></i>
+
+<h3>Call Support</h3>
+
+<p>
+24×7 customer support
+</p>
+
+</div>
+
+<div class="support-card"
+onclick="emailSupport()">
+
+<i class="ri-mail-line"></i>
+
+<h3>Email Support</h3>
+
+<p>
+support@biopay.com
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+© 2026 Bio-Pay Help Center
+
+</footer>
+<script>
+
+function showResult(message){
+
+const result =
+document.getElementById(
+"searchResult"
+);
+
+result.style.display = "block";
+
+result.innerHTML = message;
+
+window.scrollTo({
+top:250,
+behavior:"smooth"
+});
+
+}
+
+/* SEARCH */
+
+function searchHelp(){
+
+let search =
+document.getElementById(
+"searchBox"
+).value.toLowerCase();
+
+if(search.includes("payment")){
+
+showResult(
+"<h3>Payment Help</h3><br>Open Bio-Pay → Pay Mobile → Enter Amount → Authenticate Fingerprint → Payment Success."
+);
+
+}
+
+else if(search.includes("login")){
+
+showResult(
+"<h3>Login Help</h3><br>Verify your mobile number and authenticate using fingerprint."
+);
+
+}
+
+else if(search.includes("security")){
+
+showResult(
+"<h3>Security Help</h3><br>Bio-Pay uses biometric authentication and encrypted transactions."
+);
+
+}
+
+else if(search.includes("qr")){
+
+showResult(
+"<h3>QR Payment Help</h3><br>Open Scan To Pay → Scan Merchant QR → Verify Fingerprint."
+);
+
+}
+
+else if(search.includes("refund")){
+
+showResult(
+"<h3>Refund Help</h3><br>Refunds are usually processed within 3-5 business days."
+);
+
+}
+
+else{
+
+showResult(
+"<h3>No Results Found</h3><br>Try searching Payment, Login, QR, Security or Refund."
+);
+
+}
+
+}
+
+/* HELP CARDS */
+
+function openTopic(topic){
+
+if(topic==="payment"){
+
+showResult(
+"<h3>Payment Problems</h3><br>Check internet connection, receiver details and available balance."
+);
+
+}
+
+if(topic==="login"){
+
+showResult(
+"<h3>Account & Login</h3><br>Ensure your registered mobile number and fingerprint are verified."
+);
+
+}
+
+if(topic==="security"){
+
+showResult(
+"<h3>Security</h3><br>Bio-Pay protects accounts using biometric authentication and secure encryption."
+);
+
+}
+
+if(topic==="qr"){
+
+showResult(
+"<h3>QR Payments</h3><br>Use a valid merchant QR code and authenticate with fingerprint."
+);
+
+}
+
+}
+
+/* ARTICLES */
+
+function showArticle(article){
+
+if(article==="payment"){
+
+showResult(
+"<h3>How to Make a Payment</h3><br>1. Open Dashboard<br>2. Click Pay Mobile<br>3. Enter Amount<br>4. Scan Fingerprint<br>5. Payment Complete"
+);
+
+}
+
+if(article==="failed"){
+
+showResult(
+"<h3>Why Did My Payment Fail?</h3><br>Payment failures may occur due to poor network, insufficient balance or incorrect receiver details."
+);
+
+}
+
+if(article==="fingerprint"){
+
+showResult(
+"<h3>Enable Fingerprint Login</h3><br>Open Settings → Security → Enable Biometric Authentication."
+);
+
+}
+
+if(article==="balance"){
+
+showResult(
+"<h3>Check Balance</h3><br>Open Dashboard → Check Balance → Verify Fingerprint."
+);
+
+}
+
+if(article==="refund"){
+
+showResult(
+"<h3>Refund Process</h3><br>Refunds are automatically credited back to the account within a few business days."
+);
+
+}
+
+}
+
+/* SUPPORT */
+
+function openChat(){
+
+alert(
+"Live Chat Support will be available soon."
+);
+
+}
+
+function callSupport(){
+
+window.location.href =
+"tel:+9118001234567";
+
+}
+
+function emailSupport(){
+
+window.location.href =
+"mailto:support@biopay.com";
+
+}
+
+/* ENTER KEY SEARCH */
+
+document
+.getElementById("searchBox")
+.addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+
+searchHelp();
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bio-Pay</title>
+
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- ICONS -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGO BACKGROUND -->
+<div class="bio-pay-wrapper">
+  <svg viewBox="0 0 500 150" class="logo-signature">
+    <defs>
+      <linearGradient id="bioGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#2d6ade;" />
+        <stop offset="50%" style="stop-color:#06b6d4;" />
+        <stop offset="100%" style="stop-color:#22c55e;" />
+      </linearGradient>
+    </defs>
+
+    <text x="50%" y="50%" text-anchor="middle" class="signature-text">
+      Bio-Pay
+    </text>
+  </svg>
+</div>
+
+<!-- NAVBAR -->
+<header class="nav">
+
+  <div class="logo">
+    <div class="logo-box">B</div>
+    <span class="logo-text">Bio-Pay</span>
+  </div>
+
+  <div class="nav-right">
+   <a href="help.html">Help</a>
+   <a href="contact.html">Contact</a>
+
+</header>
+
+<!-- MAIN -->
+<section class="main">
+
+  <div class="left">
+    <h1 id="typing"></h1>
+
+    <p class="desc">
+      Experience seamless, biometric-enabled transactions with our next-generation fintech platform.
+    </p>
+
+    <ul class="features">
+      <li>Mobile number based user verification</li>
+      <li>Fingerprint authentication for secure access</li>
+      <li>Fast and secure payment processing</li>
+      <li>Suitable for real-world applications</li>
+    </ul>
+  </div>
+
+  <!-- VERIFY CARD -->
+  <div class="card">
+    <h2>Verify Identity</h2>
+
+    <label>MOBILE NUMBER</label>
+
+    <div class="mobile-input">
+      <span class="code">+91</span>
+      <input type="tel" id="mobile" placeholder="Enter mobile number" maxlength="10">
+    </div>
+
+    <button class="btn" onclick="verifyNumber()">Verify</button>
+  </div>
+
+</section>
+<!-- SMALL SAFE INLINE (NO CONFLICT) -->
+<script>
+  // typing effect only (safe)
+  const typing = document.getElementById("typing");
+
+  const text = `Securing the
+future of
+payments.`;
+
+  let index = 0;
+
+  function typeEffect() {
+    if (index < text.length) {
+      if (text.charAt(index) === "\n") {
+        typing.innerHTML += "<br>";
+      } else {
+        typing.innerHTML += text.charAt(index);
+      }
+      index++;
+      setTimeout(typeEffect, 85);
+    }
+  }
+
+  typeEffect();
+</script>
+
+<!-- MAIN JS FILE -->
+<script src="script.js"></script>
+</body>
+</html>
