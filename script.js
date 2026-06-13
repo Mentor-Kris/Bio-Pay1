@@ -6,24 +6,6 @@ if (typeof lucide !== "undefined") {
 }
 
 // ===============================
-// DROPDOWN MENU
-// ===============================
-const avatar = document.getElementById("avatar");
-const menu = document.getElementById("menu");
-
-if (avatar && menu) {
-  avatar.addEventListener("click", () => {
-    menu.classList.toggle("show");
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!avatar.contains(e.target) && !menu.contains(e.target)) {
-      menu.classList.remove("show");
-    }
-  });
-}
-
-// ===============================
 // MOBILE INPUT (ONLY NUMBERS)
 // ===============================
 const mobileInput = document.getElementById("mobile");
@@ -37,24 +19,23 @@ if (mobileInput) {
 }
 
 // VERIFY NUMBER (generate OTP once)
-function verifyNumber() {
-  let mobile = document.getElementById("mobile").value;
+function verifyNumber(){
 
-  mobile = mobile.replace(/\D/g, "");
+    const mobile =
+    document.getElementById("mobile").value.trim();
 
-  if (mobile.length !== 10) {
-    alert("Enter valid 10-digit mobile number");
-    return;
-  }
+    if(mobile.length !== 10){
+        alert("Enter Valid Mobile Number");
+        return;
+    }
 
-  // ✅ ONLY store mobile
-  localStorage.setItem("mobile", mobile);
-
-  // ❌ NO OTP HERE
-
-  // redirect
-  window.location.href = "otp.html";
+    localStorage.setItem(
+        "userMobile",
+        mobile
+    );
+window.location.href = "otp.html";
 }
+
 // CHECK OTP
 function checkOTP() {
   const entered = document.getElementById("otpInput").value;
@@ -62,13 +43,8 @@ function checkOTP() {
 
   if (entered === real) {
     alert("Login Successful");
-    const mobile =
-localStorage.getItem("mobile");
-
-localStorage.setItem(
-"userMobile",
-mobile
-);
+ const mobile =
+localStorage.getItem("userMobile");
     window.location.href = "home.html";
   } else {
     alert("Wrong OTP ❌");
@@ -78,7 +54,7 @@ mobile
 // LOGOUT
 
 function logout() {
-  localStorage.clear();
+  localStorage.removeItem("userMobile");
   alert("Logged out");
   window.location.href = "index.html";
 }
@@ -87,6 +63,12 @@ function logout() {
 // ACTIVE CARD SWITCH
 // ===============================
 document.addEventListener("DOMContentLoaded", () => {
+
+  loadProfileCard();
+
+  loadSettingsCard();
+
+});
   const actions = document.querySelectorAll(".action");
 
   actions.forEach((card) => {
@@ -95,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.classList.add("active-card");
     });
   });
-});
+
 let balanceVisible = false;
 let balance = 5000;
 let totalCredit = 0;
@@ -573,65 +555,6 @@ function clearHistory(){
   document.getElementById("activityList").innerHTML = "";
 }
 
-  const item =
-  button.closest(".activity-item");
-
-  // get saved data
-
-  const name =
-  item.getAttribute("data-name");
-
-  const mobile =
-  item.getAttribute("data-mobile");
-
-  const amount =
-  item.getAttribute("data-amount");
-
-  const date =
-  item.getAttribute("data-date");
-
-  const time =
-  item.getAttribute("data-time");
-
-  const transaction =
-  item.getAttribute("data-transaction");
-
-  // initials
-
-  let initials =
-  name
-  .split(" ")
-  .map(word => word[0])
-  .join("")
-  .toUpperCase();
-
-  // update receipt
-
-  document.getElementById("receiptAmount").innerText =
-  "₹" + amount;
-
-  document.getElementById("receiverName").innerText =
-  name;
-
-  document.getElementById("receiptUser").innerText =
-  mobile;
-
-  document.getElementById("receiptDate").innerText =
-  date;
-
-  document.getElementById("receiptTime").innerText =
-  time;
-
-  document.getElementById("transactionId").innerText =
-  transaction;
-
-  document.getElementById("receiverAvatar").innerText =
-  initials;
-
-  // show popup
-
-  document.getElementById("receiptPopup").style.display =
-  "flex";
 
 // OPEN BALANCE
 
@@ -707,33 +630,46 @@ document.getElementById("qrPopup").style.display =
 let username =
 localStorage.getItem("profileName")
 || "User";
+const mobile =
+localStorage.getItem("userMobile");
+
+const profile =
+JSON.parse(
+localStorage.getItem(
+"userProfile_" + mobile
+)
+);
+
 let upi =
-"kris@biopay";
+profile?.upi || "user@biopay";
 
 let initials =
-username
-.split(" ")
-.map(word => word[0])
-.join("")
-.toUpperCase();
+username.charAt(0).toUpperCase();
 document.getElementById("centerLogo").innerHTML =
-`<span style="
-font-size:28px;
-font-weight:bold;
-color:#2563eb;
+`
+<div style="
+text-align:center;
 ">
-${username.charAt(0).toUpperCase()}
-</span>`;
 
-document.getElementById("qrAvatar").innerText =
-initials;
+<div style="
+font-size:28px;
+font-weight:700;
+color:#2563eb;
+background:rgba(255,255,255,.85);
+width:42px;
+height:42px;
+line-height:42px;
+border-radius:50%;
+margin:auto;
+">
+${initials}
+</div>
 
-document.getElementById("qrName").innerText =
-username;
-
-document.getElementById("qrUsername").innerText =
-"@" + upi;
-
+</div>
+`;
+document.getElementById("profileAvatar").innerText = initials;
+document.getElementById("profileCardName").innerText = username;
+document.getElementById("profileCardUpi").innerText = upi;
 document.getElementById("upiId").innerText =
 upi;
 
@@ -743,22 +679,6 @@ let qrData =
 document.getElementById("realQR").src =
 "https://api.qrserver.com/v1/create-qr-code/?size=260x260&data="
 + encodeURIComponent(qrData);
-const savedPhoto =
-localStorage.getItem("qrPhoto");
-
-if(savedPhoto){
-
-document.getElementById("centerLogo").innerHTML =
-`<img src="${savedPhoto}"
-style="
-width:50px;
-height:50px;
-border-radius:50%;
-object-fit:cover;
-opacity:.9;
-">`;
-
-}
 }
 /* CLOSE POPUP */
 
@@ -833,16 +753,13 @@ CREATE QR CARD
 ========================= */
 
 async function createQRCard(){
-
-  let username =
-  document.getElementById("qrName").innerText;
-
   let upi =
   document.getElementById("upiId").innerText;
 
   let qr =
   document.getElementById("realQR").src;
-
+let username =
+document.getElementById("profileCardName").innerText;
   let initials =
   username
   .split(" ")
@@ -874,24 +791,54 @@ async function createQRCard(){
 
   // USER LOGO
 
-  const gradient =
-  ctx.createLinearGradient(
-  0,
-  0,
-  200,
-  200
-  );
+  ctx.beginPath();
 
-  gradient.addColorStop(
-  0,
-  "#2563eb"
-  );
+const avatarGradient =
+ctx.createLinearGradient(
+250,80,
+550,220
+);
 
-  gradient.addColorStop(
-  1,
-  "#60a5fa"
-  );
+avatarGradient.addColorStop(
+0,
+"#2563eb"
+);
 
+avatarGradient.addColorStop(
+1,
+"#60a5fa"
+);
+
+ctx.fillStyle =
+avatarGradient;
+avatarGradient.addColorStop(0,"#2563eb");
+avatarGradient.addColorStop(1,"#60a5fa");
+
+ctx.fillStyle = avatarGradient;
+
+ctx.arc(
+400,
+140,
+70,
+0,
+Math.PI * 2
+);
+
+ctx.fill();
+
+// LETTER
+
+ctx.fillStyle = "#ffffff";
+
+ctx.font = "bold 60px Arial";
+
+ctx.textAlign = "center";
+
+ctx.fillText(
+username.charAt(0).toUpperCase(),
+400,
+160
+);
   // NAME
 
   ctx.fillStyle =
@@ -899,13 +846,12 @@ async function createQRCard(){
 
   ctx.font =
   "bold 52px Arial";
-
+ctx.textAlign = "center";
   ctx.fillText(
   username,
   400,
   290
   );
-
   // UPI
 
   ctx.fillStyle =
@@ -915,10 +861,10 @@ async function createQRCard(){
   "36px Arial";
 
   ctx.fillText(
-  "@" + upi,
-  400,
-  345
-  );
+upi,
+400,
+345
+);
 
   // QR BOX
 
@@ -1107,14 +1053,14 @@ async function shareQR(){
     {type:"image/png"}
     );
 
-    await navigator.share({
-
+    if (navigator.share) {
+   await navigator.share({
       title:"BioPay QR",
-
       files:[file]
-
-    });
-
+   });
+} else {
+   alert("Sharing not supported on this device");
+}
   });
 }
 
@@ -1136,7 +1082,9 @@ async function downloadQR(){
   link.href =
   canvas.toDataURL();
 
-  link.click();
+ document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
 }
 /* =========================
 CUSTOMIZE QR
@@ -1180,20 +1128,13 @@ if(!file) return;
 const reader = new FileReader();
 
 reader.onload = function(e){
-
-localStorage.setItem(
-"qrPhoto",
-e.target.result
-);
-
 document.getElementById("centerLogo").innerHTML =
 `<img src="${e.target.result}"
 style="
-width:22px;
-height:22px;
+width:50px;
+height:50px;
 border-radius:50%;
 object-fit:cover;
-opacity:.9;
 ">`;
 
 };
@@ -1201,8 +1142,6 @@ opacity:.9;
 reader.readAsDataURL(file);
 
 }
-    // CENTER LOGO
-
 /* UPDATE UI */
 
 function updateBalanceUI(){
@@ -1348,8 +1287,10 @@ document.body.classList.toggle(
 function openProfilePage(){
 
 document.getElementById(
-"profilePage"
-).style.display = "flex";
+"profileDetailsPage"
+).style.display = "block";
+
+loadProfile();
 
 }
 
@@ -1403,9 +1344,7 @@ localStorage.getItem(
 if(savedMobile){
 
 const mobileText =
-document.getElementById(
-"profileMobile"
-);
+document.getElementById("profileMobileText");
 
 if(mobileText){
 
@@ -1768,12 +1707,16 @@ document.getElementById(
 
 }
 
-document.getElementById(
-"accountMobile"
-).value =
+const accountMobile =
+document.getElementById("accountMobile");
+
+if(accountMobile){
+
+accountMobile.value =
 localStorage.getItem("userMobile")
 || "";
 
+}
 
 function closeAccountPage(){
 
@@ -1881,3 +1824,186 @@ sendPayment();
 }
 
 });
+function saveProfile(){
+
+const profile = {
+
+mobile:
+localStorage.getItem("userMobile"),
+
+name:
+document.getElementById("profileNameInput").value,
+
+email:
+document.getElementById("profileEmailInput").value,
+
+dob:
+document.getElementById("profileDobInput").value,
+
+gender:
+document.getElementById("profileGender").value,
+
+city:
+document.getElementById("profileCityInput").value
+
+};
+
+profile.upi =
+profile.name
+.toLowerCase()
+.replace(/\s+/g,"")
++ "@biopay";
+
+const mobile =
+localStorage.getItem("userMobile");
+
+localStorage.setItem(
+"userProfile_" + mobile,
+JSON.stringify(profile)
+);
+
+document.getElementById("profileUpi").value =
+profile.upi;
+localStorage.setItem(
+"profileName",
+profile.name
+);
+
+localStorage.setItem(
+"profileUpi",
+profile.upi
+);
+alert("Profile Saved Successfully");
+document.getElementById(
+"profileDetailsPage"
+).style.display = "none";
+}
+
+function loadProfile(){
+
+const mobile =
+localStorage.getItem("userMobile");
+
+const profile =
+JSON.parse(
+localStorage.getItem(
+"userProfile_" + mobile
+)
+);
+document.getElementById("profileMobile").value =
+localStorage.getItem("userMobile") || "";
+
+if(!profile) return;
+
+document.getElementById("profileNameInput").value =
+profile.name || "";
+
+document.getElementById("profileEmailInput").value =
+profile.email || "";
+
+document.getElementById("profileDobInput").value =
+profile.dob || "";
+
+document.getElementById("profileGender").value =
+profile.gender || "Male";
+
+document.getElementById("profileCityInput").value =
+profile.city || "";
+
+document.getElementById("profileUpi").value =
+profile.upi || "";
+}
+document.addEventListener("DOMContentLoaded", function(){
+
+    const mobile =
+    localStorage.getItem("userMobile");
+
+    if(mobile){
+
+        const mobileBox =
+        document.getElementById("profileMobileText");
+
+        if(mobileBox){
+
+            mobileBox.innerText = mobile;
+
+        }
+    }
+
+});
+function loadProfileCard(){
+
+const mobile =
+localStorage.getItem("userMobile");
+
+if(!mobile) return;
+
+const profile =
+JSON.parse(
+localStorage.getItem(
+"userProfile_" + mobile
+)
+);
+
+if(!profile) return;
+
+document.getElementById(
+"profileCardName"
+).innerText =
+profile.name || "User";
+
+document.getElementById(
+"profileCardUpi"
+).innerText =
+profile.upi || "user@biopay";
+
+let initials =
+(profile.name || "U")
+.split(" ")
+.map(word => word[0])
+.join("")
+.toUpperCase();
+
+document.getElementById(
+"profileAvatar"
+).innerText =
+initials;
+}
+function loadSettingsCard(){
+
+const mobile =
+localStorage.getItem("userMobile");
+
+if(!mobile) return;
+
+const profile =
+JSON.parse(
+localStorage.getItem(
+"userProfile_" + mobile
+)
+);
+
+if(!profile) return;
+
+document.getElementById(
+"settingsName"
+).innerText =
+profile.name || "User";
+
+document.getElementById(
+"settingsUpi"
+).innerText =
+profile.upi || "user@biopay";
+
+let initials =
+(profile.name || "U")
+.split(" ")
+.map(word => word[0])
+.join("")
+.toUpperCase();
+
+document.getElementById(
+"settingsAvatar"
+).innerText =
+initials;
+}

@@ -2893,16 +2893,13 @@ MY QR POPUP
 /* USER */
 
 .qr-user-top{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    margin-bottom:22px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+margin-top:15px;
+margin-bottom:25px;
 }
 
 /* AVATAR */
@@ -2959,29 +2956,11 @@ MY QR POPUP
 
 /* QR BOX */
 
-.real-qr-box{
-
-    width:260px;
-    height:260px;
-
-    margin:auto;
-
-    position:relative;
-
-    background:#fff;
-
-    border-radius:24px;
-
-    padding:16px;
-
-    border:2px solid #dbeafe;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.08);
-
-    margin-bottom:22px;
+.real-qr-box img{
+width:230px;
+height:230px;
+object-fit:contain;
 }
-
 /* IMAGE */
 
 .real-qr-box img{
@@ -3085,23 +3064,19 @@ object-fit:contain;
 /* STATUS */
 
 .qr-status{
-
-    background:#f8fafc;
-
-    border-radius:20px;
-
-    padding:18px;
-
     display:flex;
-
-    justify-content:space-between;
-
-    margin-bottom:22px;
+    justify-content:space-around;
+    align-items:center;
+    background:#f8fbff;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:20px;
 }
 
-.qr-status div{
 
+.qr-status div{
     flex:1;
+    text-align:center;
 }
 
 .qr-status span{
@@ -3117,45 +3092,33 @@ object-fit:contain;
 
     font-size:20px;
 }
-
 .active-status{
-
     color:#22c55e;
+    font-size:18px;
+    font-weight:700;
 }
 
 .secure-status{
-
     color:#2563eb;
+    font-size:18px;
+    font-weight:700;
+    white-space:nowrap;
 }
-
 /* BUTTONS */
 
 .qr-buttons{
-
     display:flex;
-
-    gap:14px;
+    gap:15px;
+    margin-top:20px;
 }
-
 .qr-buttons button{
-
     flex:1;
-
-    height:58px;
-
+    height:60px;
     border:none;
-
     border-radius:18px;
-
-    cursor:pointer;
-
     font-size:18px;
-
     font-weight:700;
-
-    transition:.3s;
 }
-
 .share-qr{
 
     background:#eef2ff;
@@ -3277,7 +3240,8 @@ PERFECT MY QR
     align-items:center;
 
     justify-content:center;
-
+ text-align:center;
+    margin-top:40px;
     margin-bottom:18px;
 }
 
@@ -3537,8 +3501,8 @@ PERFECT MY QR
 }
 
 .qr-status b{
-
-    font-size:17px;
+font-size:18px;
+white-space:nowrap;
 }
 
 .active-status{
@@ -3818,34 +3782,29 @@ color:#2563eb;
 /* PROFILE */
 
 .profile-setting{
-
 display:flex;
-
 align-items:center;
-
-gap:15px;
+gap:20px;
 
 background:white;
 
-padding:18px;
+padding:22px;
 
 border-radius:24px;
 
 margin-bottom:25px;
 
-box-shadow:
-0 8px 25px rgba(15,23,42,.06);
+box-shadow:0 8px 25px rgba(15,23,42,.06);
 }
 
 .profile-avatar{
 
-width:60px;
-height:60px;
+width:80px;
+height:80px;
 
 border-radius:50%;
 
-background:
-linear-gradient(
+background:linear-gradient(
 135deg,
 #2563eb,
 #60a5fa
@@ -3855,27 +3814,28 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:22px;
-
+font-size:32px;
 font-weight:700;
 
 color:white;
+
+margin:0;
+flex-shrink:0;
 }
-
 .profile-info h3{
-
-font-size:18px;
-
-margin-bottom:4px;
-
-color:#0f172a;
+font-size:28px;
+font-weight:700;
+margin-bottom:8px;
+color:#071a52;
 }
 
 .profile-info p{
-
-font-size:14px;
-
+font-size:18px;
 color:#64748b;
+}
+.profile-info{
+flex:1;
+text-align:left;
 }
 
 /* LIST */
@@ -4489,28 +4449,34 @@ z-index:99999;
 
 .myqr-box{
 width:430px;
+max-width:95%;
 max-height:90vh;
 overflow:auto;
 background:white;
-border-radius:25px;
-padding:25px;
+border-radius:30px;
+padding:30px;
+position:relative;
+text-align:center;
 }
 .qr-close{
+    position:absolute;
+    top:20px;
+    right:20px;
 
-position:absolute;
+    width:40px;
+    height:40px;
 
-top:15px;
-right:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-font-size:24px;
+    border-radius:50%;
+    background:#f1f5f9;
 
-font-weight:bold;
+    cursor:pointer;
 
-cursor:pointer;
-
-color:#64748b;
-
-z-index:999;
+    font-size:18px;
+    font-weight:700;
 }
 .notification-item{
 
@@ -4814,4 +4780,94 @@ gap:12px;
 padding:12px;
 border:1px solid #ddd;
 border-radius:10px;
+}
+#profileDetailsPage{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+
+width:650px;
+height:850px;
+
+max-width:90%;
+max-height:90vh;
+
+background:#fff;
+border-radius:40px;
+
+padding:30px;
+overflow-y:auto;
+
+z-index:999999;
+
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+#profileDetailsPage h2{
+font-size:48px;
+font-weight:700;
+color:#0a1f63;
+margin-bottom:30px;
+text-align:center;
+}
+#profileDetailsPage button{
+padding:12px 25px;
+border:none;
+border-radius:12px;
+background:#2563eb;
+color:white;
+font-weight:600;
+cursor:pointer;
+margin-right:10px;
+}
+.profile-header{
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+margin-bottom:30px;
+
+}
+
+.profile-header button{
+
+border:none;
+
+background:none;
+
+font-size:35px;
+
+cursor:pointer;
+
+color:#0f256e;
+
+}
+
+.profile-header h2{
+
+font-size:48px;
+
+font-weight:700;
+
+color:#0f256e;
+
+margin:0;
+
+}
+.avatar{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 15px;
+    font-size:32px;
+    font-weight:700;
 }

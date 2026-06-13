@@ -34,27 +34,6 @@ onclick="event.stopPropagation();toggleNotifications()">
 
 </div>
 
-<div class="profile-wrapper">
-
-  <div class="profile-btn"
-       onclick="toggleProfileMenu()">
-    P
-  </div>
-
-  <div id="profileMenu"
-       class="profile-menu">
-
-    <div onclick="openAccountPage()">
-      Account
-    </div>
-
-    <div onclick="logout()">
-      Logout
-    </div>
-
-  </div>
-
-</div>
 <!-- NOTIFICATION PANEL -->
 
 <div id="notificationPanel"
@@ -209,38 +188,15 @@ onclick="closeQRPopup()">
 
     <div class="qr-user-top">
 
-      <!-- USER LOGO -->
+    <div class="avatar" id="profileAvatar">KB</div>
 
-      <div class="upi-user-logo"
-      id="qrAvatar">
+    <h3 id="profileCardName">User</h3>
 
-        KB
+    <p id="profileCardUpi">user@biopay</p>
 
-      </div>
+</div>
 
-      <!-- USER INFO -->
-
-      <div class="upi-user-info">
-
-        <h3 id="qrName">
-
-          Kris Bhanderi
-
-        </h3>
-
-        <p id="qrUsername">
-
-          @kris@biopay
-
-        </p>
-
-      </div>
-
-    </div>
-
-    <!-- QR CARD -->
-
-    <div class="real-qr-box">
+<div class="real-qr-box">
 
       <!-- REAL QR -->
 
@@ -754,19 +710,21 @@ id="receiverAvatar">
 
     <div class="profile-setting">
 
-      <div class="profile-avatar">
+   <div class="profile-avatar" id="settingsAvatar">
+U
+</div>
 
-        KB
+<div class="profile-info">
 
-      </div>
+<h3 id="settingsName">
+User
+</h3>
 
-      <div class="profile-info">
+<p id="settingsUpi">
+user@biopay
+</p>
 
-        <h3>Kris Bhanderi</h3>
-
-        <p>@kris@biopay</p>
-
-      </div>
+</div>
 
     </div>
 
@@ -864,12 +822,27 @@ onclick="openAlertsPage()">
         </label>
 
       </div>
+<div class="settings-item"
+onclick="logout()">
 
+  <div class="settings-left">
+
+    <i class="ri-logout-box-r-line"></i>
+
+    <span style="color:#ef4444;">
+      Logout
+    </span>
+
+  </div>
+
+</div>
     </div>
 
   </div>
 
 </div>
+
+
 <!-- PROFILE PAGE -->
 
 <div class="settings-popup"
@@ -886,7 +859,15 @@ onclick="closeSettingsPopup()">
 
 </div>
 
+<div class="profile-header">
+
+<button onclick="closeProfilePage()">
+←
+</button>
+
 <h2>Your Profile</h2>
+
+</div>
 
 </div>
 
@@ -915,7 +896,7 @@ KB
 <div class="settings-left">
 
 <i class="ri-phone-line"></i>
-<span id="profileMobile">
+<span id="profileMobileText">
 Not Added
 </span>
 </div>
@@ -1142,9 +1123,7 @@ Close
     <button onclick="closeAccountPage()">✕</button>
 
   </div>
-
-  <div class="account-body">
-
+</div>
     <label>Mobile Number</label>
     <input id="accountMobile" readonly>
 
@@ -1201,7 +1180,80 @@ Close
 <button onclick="saveAccountDetails()">
 Save Details
 </button>
+</div>
+<div id="profileDetailsPage" style="
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:650px;
+height:850px;
+max-width:90%;
+max-height:90vh;
+background:#fff;
+border-radius:40px;
+padding:30px;
+overflow-y:auto;
+z-index:999999;
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+">
 
+<h2>Your Profile</h2>
+
+<label>Mobile Number</label>
+<input id="profileMobile" readonly>
+
+<br><br>
+
+<label>Full Name</label>
+<input id="profileNameInput">
+
+<br><br>
+
+<label>Email</label>
+<input id="profileEmailInput">
+
+<br><br>
+
+<label>Date Of Birth</label>
+<input type="date" id="profileDobInput">
+
+<br><br>
+
+<label>Gender</label>
+
+<select id="profileGender">
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+<br><br>
+
+<label>City</label>
+<input id="profileCityInput">
+
+<br><br>
+
+<label>BioPay UPI ID</label>
+<input id="profileUpi" readonly>
+
+<br><br>
+
+<div class="profile-buttons">
+
+<button onclick="saveProfile()">
+Save Profile
+</button>
+
+<button onclick="
+document.getElementById('profileDetailsPage').style.display='none'
+">
+Close
+</button>
+
+</div>
 </div>
 </body>
 </html>
