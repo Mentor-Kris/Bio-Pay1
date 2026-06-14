@@ -586,12 +586,26 @@ function closeBalancePopup(){
 
 function openBalancePopup(){
 
-  // open biometric first
+const bioEnabled =
+localStorage.getItem("biometricEnabled");
 
-  window.checkingBalance = true;
+if(bioEnabled === "true"){
 
-  document.getElementById("bio-popup").style.display =
-  "flex";
+window.checkingBalance = true;
+
+document.getElementById("bio-popup").style.display =
+"flex";
+
+}else{
+
+document.getElementById("popupBalance").innerText =
+"₹" + balance.toLocaleString();
+
+document.getElementById("balancePopup").style.display =
+"flex";
+
+}
+
 }
 
 function closeBalancePopup(){
@@ -601,32 +615,55 @@ function closeBalancePopup(){
 }
 function openBalanceBiometric(){
 
+const bioEnabled =
+localStorage.getItem("biometricEnabled");
+
 const balanceElement =
 document.getElementById("balance");
 
-  const eye =
-  document.querySelector(".eye");
+const eye =
+document.querySelector(".eye");
 
-  // IF ALREADY VISIBLE -> HIDE
+if(bioEnabled !== "true"){
 
-  if(balanceElement.innerText !== "● ● ● ● ● ●"){
+if(balanceElement.innerText === "● ● ● ● ● ●"){
 
-   balanceElement.innerText =
-    "● ● ● ● ● ●";
+balanceElement.innerText =
+"₹" + balance.toLocaleString();
 
-    eye.className =
-    "ri-eye-line eye";
+eye.className =
+"ri-eye-off-line eye";
 
-    return;
-    updateBalanceUI();
-  }
+}else{
 
-  // OTHERWISE OPEN BIOMETRIC
+balanceElement.innerText =
+"● ● ● ● ● ●";
 
-  window.balanceMode = true;
+eye.className =
+"ri-eye-line eye";
 
-  document.getElementById("bio-popup").style.display =
-  "flex";
+}
+
+return;
+}
+
+if(balanceElement.innerText !== "● ● ● ● ● ●"){
+
+balanceElement.innerText =
+"● ● ● ● ● ●";
+
+eye.className =
+"ri-eye-line eye";
+
+return;
+
+}
+
+window.balanceMode = true;
+
+document.getElementById("bio-popup").style.display =
+"flex";
+
 }
 // =========================
 // OPEN QR
