@@ -895,15 +895,12 @@ KB
 
 <div class="settings-left">
 
-<i class="ri-phone-line"></i>
-<span id="profileMobileText">
-Not Added
-</span>
-</div>
 
 </div>
 
+</div>
 
+</div>
 <div class="settings-item">
 
 <div class="settings-left">
@@ -923,58 +920,43 @@ Not Added
 </div>
 <!-- SECURITY PAGE -->
 
-<div class="settings-popup"
-id="securityPage">
+<!-- SECURITY PAGE -->
 
-<div class="settings-box">
+<div class="settings-popup" id="securityPage">
 
-<div class="settings-header">
+<div class="security-box">
 
-<div class="settings-back"
+<div class="security-header">
+
+<button class="security-back"
 onclick="closePage('securityPage')">
+
 <i class="ri-arrow-left-line"></i>
-</div>
+
+</button>
 
 <h2>Security Center</h2>
 
 </div>
 
-<div class="settings-list">
-
-<div class="settings-item">
-
-<div class="settings-left">
-
-<i class="ri-fingerprint-line"></i>
-
-<span>Biometric Active</span>
-
+<div class="security-grid">
+<div class="security-card">
+<span>Security Score</span>
+<h1 id="securityScore">80%</h1>
 </div>
 
+<div class="security-card">
+<span>Biometric Status</span>
+<h3 id="biometricStatus">Enabled</h3>
 </div>
 
-<div class="settings-item">
-
-<div class="settings-left">
-
-<i class="ri-smartphone-line"></i>
-
-<span>1 Trusted Device</span>
-
+<div class="security-card">
+<span>Trusted Device</span>
+<h3 id="trustedDevice">Windows PC</h3>
 </div>
-
-</div>
-
-<div class="settings-item">
-
-<div class="settings-left">
-
-<i class="ri-shield-keyhole-line"></i>
-
-<span>End-to-End Encryption</span>
-
-</div>
-
+<div class="security-card">
+<span>Last Login</span>
+<h3 id="lastLogin"></h3>
 </div>
 
 </div>
@@ -999,8 +981,8 @@ onclick="closePage('alertsPage')">
 </div>
 
 <h2>Payment Alerts</h2>
-
 </div>
+
 
 <div class="settings-list">
 
@@ -1040,9 +1022,6 @@ onclick="closePage('alertsPage')">
 
 </div>
 
-</div>
-
-</div>
 <div id="notificationDetails"
 style="
 display:none;
@@ -1123,63 +1102,29 @@ Close
     <button onclick="closeAccountPage()">✕</button>
 
   </div>
-</div>
-    <label>Mobile Number</label>
-    <input id="accountMobile" readonly>
 
-    <label>Full Name</label>
-    <input id="accountName">
+  <label>Mobile Number</label>
+  <input id="accountMobile" readonly>
 
-    <label>Email</label>
-    <input id="accountEmail">
+  <label>Full Name</label>
+  <input id="accountName">
 
-    <label>City</label>
-    <input id="accountCity">
+  <label>Email</label>
+  <input id="accountEmail">
 
-    <label>Date of Birth</label>
-    <input id="accountDob" type="date">
+  <label>City</label>
+  <input id="accountCity">
 
-    <label>BioPay UPI ID</label>
-    <input id="accountUpi" readonly>
+  <label>Date of Birth</label>
+  <input id="accountDob" type="date">
 
-    <button onclick="saveAccountDetails()">
-      Save Details
-    </button>
+  <label>BioPay UPI ID</label>
+  <input id="accountUpi" readonly>
 
-  </div>
+  <button onclick="saveAccountDetails()">
+    Save Details
+  </button>
 
-</div>
-<h2>Account Details</h2>
-
-<button onclick="closeAccountPage()">
-Close
-</button>
-
-<br><br>
-
-<label>Mobile Number</label>
-<input id="accountMobile" readonly>
-
-<br><br>
-
-<label>Full Name</label>
-<input id="accountName">
-
-<br><br>
-
-<label>Email</label>
-<input id="accountEmail">
-
-<br><br>
-
-<label>City</label>
-<input id="accountCity">
-
-<br><br>
-
-<button onclick="saveAccountDetails()">
-Save Details
-</button>
 </div>
 <div id="profileDetailsPage" style="
 display:none;

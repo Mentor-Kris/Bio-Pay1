@@ -45,6 +45,15 @@ function checkOTP() {
     alert("Login Successful");
  const mobile =
 localStorage.getItem("userMobile");
+localStorage.setItem(
+"userLastLogin",
+new Date().toLocaleString()
+);
+
+localStorage.setItem(
+"userDevice",
+navigator.platform
+);
     window.location.href = "home.html";
   } else {
     alert("Wrong OTP ❌");
@@ -627,9 +636,6 @@ function openQRPopup(){
 
 document.getElementById("qrPopup").style.display =
 "flex";
-let username =
-localStorage.getItem("profileName")
-|| "User";
 const mobile =
 localStorage.getItem("userMobile");
 
@@ -640,11 +646,16 @@ localStorage.getItem(
 )
 );
 
+let username =
+profile?.name || "User";
 let upi =
 profile?.upi || "user@biopay";
-
 let initials =
-username.charAt(0).toUpperCase();
+username
+.split(" ")
+.map(word => word[0])
+.join("")
+.toUpperCase();
 document.getElementById("centerLogo").innerHTML =
 `
 <div style="
@@ -829,29 +840,26 @@ ctx.fill();
 // LETTER
 
 ctx.fillStyle = "#ffffff";
+ctx.font = "bold 56px Arial";
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
 
-ctx.font = "bold 60px Arial";
+ctx.fillText(
+initials,
+400,
+140
+);
+ctx.fillStyle = "#0f256e";
+
+ctx.font = "bold 56px Arial";
 
 ctx.textAlign = "center";
 
 ctx.fillText(
-username.charAt(0).toUpperCase(),
+username,
 400,
-160
+270
 );
-  // NAME
-
-  ctx.fillStyle =
-  "#071a52";
-
-  ctx.font =
-  "bold 52px Arial";
-ctx.textAlign = "center";
-  ctx.fillText(
-  username,
-  400,
-  290
-  );
   // UPI
 
   ctx.fillStyle =
@@ -860,10 +868,10 @@ ctx.textAlign = "center";
   ctx.font =
   "36px Arial";
 
-  ctx.fillText(
+ctx.fillText(
 upi,
 400,
-345
+330
 );
 
   // QR BOX
@@ -936,17 +944,16 @@ upi,
 
   // CENTER LETTER
 
-  ctx.fillStyle =
-  "#2563eb";
+  ctx.fillStyle = "#2563eb";
+ctx.font = "bold 48px Arial";
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
 
-  ctx.font =
-  "bold 52px Arial";
-
-  ctx.fillText(
-  username.charAt(0).toUpperCase(),
-  400,
-  650
-  );
+ctx.fillText(
+initials,
+400,
+630
+);
 /* BOTTOM TEXT */
 
 ctx.fillStyle =
@@ -1299,6 +1306,8 @@ loadProfile();
 ================================= */
 
 function openSecurityPage(){
+
+loadSecurityCenter();
 
 document.getElementById(
 "securityPage"
@@ -2006,4 +2015,81 @@ document.getElementById(
 "settingsAvatar"
 ).innerText =
 initials;
+}
+function toggleBiometric(){
+
+const biometric =
+document.getElementById(
+"biometricToggle"
+);
+
+localStorage.setItem(
+"biometricEnabled",
+biometric.checked
+);
+
+}
+function getSecurityScore(){
+
+let score = 50;
+
+const mobile =
+localStorage.getItem(
+"userMobile"
+);
+
+const profile =
+JSON.parse(
+localStorage.getItem(
+"userProfile_" + mobile
+)
+);
+
+if(profile?.name) score += 10;
+if(profile?.email) score += 10;
+if(profile?.upi) score += 10;
+
+if(
+localStorage.getItem(
+"biometricEnabled"
+)==="true"
+){
+score += 20;
+}
+
+return score;
+}
+
+function loadSecurityCenter(){
+
+document.getElementById(
+"securityScore"
+).innerText =
+getSecurityScore() + "%";
+
+document.getElementById(
+"biometricStatus"
+).innerText =
+localStorage.getItem(
+"biometricEnabled"
+)==="true"
+?
+"Enabled"
+:
+"Disabled";
+
+document.getElementById(
+"trustedDevice"
+).innerText =
+localStorage.getItem(
+"userDevice"
+) || "Unknown";
+
+document.getElementById(
+"lastLogin"
+).innerText =
+localStorage.getItem(
+"userLastLogin"
+) || "Unknown";
+
 }
