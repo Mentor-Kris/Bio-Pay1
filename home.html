@@ -62,12 +62,10 @@ onclick="clearNotifications()">
     <h1>Good morning, Kris</h1>
     <p>Your biometric vault is secure.</p>
   </div>
- <div class="status">
 <div class="status">
-   
-</div>
 </div>
 </section>
+
 
 <!-- GRID -->
 <section class="grid">
@@ -760,19 +758,6 @@ onclick="openSecurityPage()">
 
 </div>
 
-  <div class="settings-item"
-onclick="openAlertsPage()">
-    <div class="settings-left">
-
-        <i class="ri-notification-3-line"></i>
-
-        <span>Payment Alerts</span>
-
-    </div>
-
-    <i class="ri-arrow-right-s-line"></i>
-
-</div>
       <!-- DARK MODE -->
 
       <div class="settings-item">
@@ -798,8 +783,7 @@ onclick="openAlertsPage()">
       </div>
 
       <!-- BIOMETRIC -->
-
-      <div class="settings-item">
+<div class="settings-item biometric-row">
 
         <div class="settings-left">
 
@@ -809,18 +793,30 @@ onclick="openAlertsPage()">
 
         </div>
 
-        <label class="switch">
+<div style="
+display:flex;
+flex-direction:column;
+align-items:center;
+width:90px;
+">
+<label class="switch">
 
-          <input
-          type="checkbox"
-          checked
-          id="biometricToggle"
-          onchange="toggleBiometric()">
+<input
+type="checkbox"
+id="biometricToggle"
+onchange="toggleBiometric()">
 
-          <span class="slider"></span>
+<span class="slider"></span>
 
-        </label>
+</label>
 
+<span
+class="forgot-pin-link"
+onclick="forgotBioPin()">
+Forgot PIN?
+</span>
+
+</div>
       </div>
 <div class="settings-item"
 onclick="logout()">
@@ -841,84 +837,6 @@ onclick="logout()">
   </div>
 
 </div>
-
-
-<!-- PROFILE PAGE -->
-
-<div class="settings-popup"
-id="profilePage">
-
-<div class="settings-box">
-
-<div class="settings-header">
-
-<div class="settings-back"
-onclick="closeSettingsPopup()">
-
-    <i class="ri-arrow-left-line"></i>
-
-</div>
-
-<div class="profile-header">
-
-<button onclick="closeProfilePage()">
-←
-</button>
-
-<h2>Your Profile</h2>
-
-</div>
-
-</div>
-
-<div class="profile-setting">
-
-<div class="profile-avatar">
-
-KB
-
-</div>
-
-<div class="profile-info">
-
-<h3>Kris Bhanderi</h3>
-
-<p>@biopay.user</p>
-
-</div>
-
-</div>
-
-<div class="settings-list">
-
-<div class="settings-item">
-
-<div class="settings-left">
-
-
-</div>
-
-</div>
-
-</div>
-<div class="settings-item">
-
-<div class="settings-left">
-
-<i class="ri-map-pin-line"></i>
-
-<span>India</span>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<!-- SECURITY PAGE -->
 
 <!-- SECURITY PAGE -->
 
@@ -954,69 +872,21 @@ onclick="closePage('securityPage')">
 <span>Trusted Device</span>
 <h3 id="trustedDevice">Windows PC</h3>
 </div>
+
 <div class="security-card">
 <span>Last Login</span>
 <h3 id="lastLogin"></h3>
 </div>
 
+<div class="security-card">
+<span>Profile Completion</span>
+<h3 id="profileCompletion">0%</h3>
 </div>
 
+<div class="security-card">
+<span>Account Status</span>
+<h3 id="accountStatus">Pending</h3>
 </div>
-
-</div>
-<!-- ALERTS PAGE -->
-
-<div class="settings-popup"
-id="alertsPage">
-
-<div class="settings-box">
-
-<div class="settings-header">
-
-<div class="settings-back"
-onclick="closePage('alertsPage')">
-
-<i class="ri-arrow-left-line"></i>
-
-</div>
-
-<h2>Payment Alerts</h2>
-</div>
-
-
-<div class="settings-list">
-
-<div class="settings-item">
-
-<div class="settings-left">
-
-<i class="ri-checkbox-circle-fill"></i>
-
-<span>Money Received Alerts</span>
-
-</div>
-
-</div>
-
-<div class="settings-item">
-
-<div class="settings-left">
-
-<i class="ri-checkbox-circle-fill"></i>
-
-<span>Payment Success Alerts</span>
-
-</div>
-
-</div>
-
-<div class="settings-item">
-
-<div class="settings-left">
-
-<i class="ri-checkbox-circle-fill"></i>
-
-<span>Security Login Alerts</span>
 
 </div>
 
@@ -1065,9 +935,9 @@ class="notification-popup">
 onclick="closeNotificationPopup()">
 Close
 </button>
-
 </div>
-
+</div>
+</div>
 </div>
 <div id="apkPopup" class="popup" style="display:none;">
 
@@ -1091,8 +961,6 @@ Close
   </div>
 
 </div>
-
-<script src="script.js"></script>
 <div id="accountPage" class="account-page">
 
   <div class="account-header">
@@ -1200,5 +1068,6 @@ Close
 
 </div>
 </div>
+<script src="script.js"></script>
 </body>
 </html>

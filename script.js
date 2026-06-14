@@ -1290,8 +1290,9 @@ document.body.classList.toggle(
 /* =================================
    PROFILE PAGE
 ================================= */
-
 function openProfilePage(){
+
+console.log("PROFILE CLICKED");
 
 document.getElementById(
 "profileDetailsPage"
@@ -1307,6 +1308,10 @@ loadProfile();
 
 function openSecurityPage(){
 
+document.getElementById(
+"settingsPopup"
+).style.display = "none";
+
 loadSecurityCenter();
 
 document.getElementById(
@@ -1315,28 +1320,16 @@ document.getElementById(
 
 }
 
-/* =================================
-   ALERT PAGE
-================================= */
+function closePage(id){
 
-function openAlertsPage(){
+document.getElementById(id).style.display = "none";
 
 document.getElementById(
-"alertsPage"
+"settingsPopup"
 ).style.display = "flex";
 
 }
 
-/* =================================
-   CLOSE PAGE
-================================= */
-
-function closePage(id){
-
-document.getElementById(id)
-.style.display = "none";
-
-}
 /* =========================
    PROFILE USER DATA
 ========================= */
@@ -2018,25 +2011,137 @@ initials;
 }
 function toggleBiometric(){
 
-const biometric =
+const toggle =
 document.getElementById(
 "biometricToggle"
 );
 
+if(toggle.checked){
+
+enableBiometric();
+
+}else{
+
+disableBiometric();
+
+}
+
+}
+function enableBiometric(){
+
+let pin =
+prompt(
+"Create 4 Digit PIN"
+);
+
+if(
+!pin ||
+pin.length !== 4 ||
+isNaN(pin)
+){
+
+alert(
+"Enter Valid 4 Digit PIN"
+);
+
+document.getElementById(
+"biometricToggle"
+).checked = false;
+
+return;
+
+}
+
+localStorage.setItem(
+"bioPin",
+pin
+);
+
 localStorage.setItem(
 "biometricEnabled",
-biometric.checked
+"true"
+);
+
+alert(
+"Biometric Enabled"
+);
+
+loadSecurityCenter();
+
+}
+function disableBiometric(){
+
+let pin =
+prompt(
+"Enter Your PIN"
+);
+
+let savedPin =
+localStorage.getItem(
+"bioPin"
+);
+
+if(pin !== savedPin){
+
+alert(
+"Wrong PIN"
+);
+
+document.getElementById(
+"biometricToggle"
+).checked = true;
+
+return;
+
+}
+
+localStorage.setItem(
+"biometricEnabled",
+"false"
+);
+
+alert(
+"Biometric Disabled"
+);
+
+loadSecurityCenter();
+
+}
+function forgotBioPin(){
+
+let confirmReset =
+confirm(
+"Reset PIN?"
+);
+
+if(!confirmReset){
+return;
+}
+
+localStorage.removeItem(
+"bioPin"
+);
+
+localStorage.setItem(
+"biometricEnabled",
+"false"
+);
+
+document.getElementById(
+"biometricToggle"
+).checked = false;
+
+alert(
+"PIN Reset Successfully"
 );
 
 }
 function getSecurityScore(){
 
-let score = 50;
+let score = 0;
 
 const mobile =
-localStorage.getItem(
-"userMobile"
-);
+localStorage.getItem("userMobile");
 
 const profile =
 JSON.parse(
@@ -2045,16 +2150,17 @@ localStorage.getItem(
 )
 );
 
-if(profile?.name) score += 10;
-if(profile?.email) score += 10;
-if(profile?.upi) score += 10;
+if(profile?.name) score += 15;
+if(profile?.email) score += 15;
+if(profile?.city) score += 15;
+if(profile?.upi) score += 15;
 
 if(
 localStorage.getItem(
 "biometricEnabled"
-)==="true"
+) === "true"
 ){
-score += 20;
+score += 40;
 }
 
 return score;
@@ -2062,28 +2168,70 @@ return score;
 
 function loadSecurityCenter(){
 
-document.getElementById(
-"securityScore"
-).innerText =
-getSecurityScore() + "%";
+let score =
+getSecurityScore();
 
-document.getElementById(
-"biometricStatus"
-).innerText =
+let current = 0;
+
+const counter = setInterval(() => {
+
+    current++;
+
+    document.getElementById("securityScore").innerText =
+    current + "%";
+
+    if(current >= score){
+
+        clearInterval(counter);
+
+    }
+
+},20);
+const bioStatus =
 localStorage.getItem(
 "biometricEnabled"
-)==="true"
-?
-"Enabled"
-:
+);
+
+const bioElement =
+document.getElementById(
+"biometricStatus"
+);
+
+if(bioStatus === "true"){
+
+bioElement.innerText =
+"Enabled";
+
+bioElement.style.color =
+"#22c55e";
+
+}else{
+
+bioElement.innerText =
 "Disabled";
+
+bioElement.style.color =
+"#ef4444";
+
+}
+
+let device =
+navigator.userAgent;
+
+if(device.includes("Windows")){
+device = "Windows PC";
+}
+else if(device.includes("Android")){
+device = "Android Phone";
+}
+else if(device.includes("iPhone")){
+device = "iPhone";
+}
 
 document.getElementById(
 "trustedDevice"
 ).innerText =
-localStorage.getItem(
-"userDevice"
-) || "Unknown";
+device;
 
 document.getElementById(
 "lastLogin"
@@ -2091,5 +2239,35 @@ document.getElementById(
 localStorage.getItem(
 "userLastLogin"
 ) || "Unknown";
+const mobile =
+localStorage.getItem("userMobile");
 
+const profile =
+JSON.parse(
+localStorage.getItem(
+"userProfile_" + mobile
+)
+);
+
+let completed = 0;
+
+if(profile?.name) completed++;
+if(profile?.email) completed++;
+if(profile?.city) completed++;
+if(profile?.dob) completed++;
+if(profile?.upi) completed++;
+
+let percent =
+Math.round((completed / 5) * 100);
+
+document.getElementById(
+"profileCompletion"
+).innerText =
+percent + "%";
+  document.getElementById(
+"accountStatus"
+).innerText =
+percent >= 80
+? "Verified ✅"
+: "Incomplete ⚠️";
 }
