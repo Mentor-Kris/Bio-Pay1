@@ -378,7 +378,7 @@ hidden>
       Send capital across borders with nothing but your bio-signature.
     </p>
 
-    <button>
+<button onclick="openReferralPopup()">
       EXPAND MY NETWORK
     </button>
 
@@ -1069,5 +1069,37 @@ Close
 </div>
 </div>
 <script src="script.js"></script>
+<div id="referralPopup" class="popup-overlay" style="display:none;">
+
+<div class="popup-content">
+
+<h2>🎁 Refer & Earn</h2>
+
+<p>Your Referral Code</p>
+
+<input
+id="referralCode"
+value="BIOPAY1234"
+readonly>
+
+<p>Total Referrals: <span id="totalReferrals">0</span></p>
+
+<p>Total Rewards: ₹<span id="totalRewards">0</span></p>
+
+<button onclick="copyReferralCode()">
+Copy Code
+</button>
+
+<button onclick="shareReferralLink()">
+Share Link
+</button>
+
+<button onclick="closeReferralPopup()">
+Close
+</button>
+
+</div>
+
+</div>
 </body>
 </html>

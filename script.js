@@ -2308,3 +2308,56 @@ percent >= 80
 ? "Verified ✅"
 : "Incomplete ⚠️";
 }
+function openReferralPopup(){
+
+document.getElementById(
+"referralPopup"
+).style.display = "flex";
+
+}
+
+function closeReferralPopup(){
+
+document.getElementById(
+"referralPopup"
+).style.display = "none";
+
+}
+
+function copyReferralCode(){
+
+navigator.clipboard.writeText(
+document.getElementById(
+"referralCode"
+).value
+);
+
+alert("Referral Code Copied");
+
+}
+
+function shareReferralLink(){
+
+const code =
+document.getElementById(
+"referralCode"
+).value;
+
+const text =
+"Join BioPay using my code: " +
+code;
+
+if(navigator.share){
+
+navigator.share({
+title:"BioPay",
+text:text
+});
+
+}else{
+
+alert(text);
+
+}
+
+}
